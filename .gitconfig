@@ -1,0 +1,5 @@
+[user]
+	email = ebensing@rm-dash-r.com
+	name = EJ Bensing
+[branch]
+	autosetuprebase = always
