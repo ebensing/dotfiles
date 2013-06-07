@@ -22,3 +22,10 @@ set tags=tags;/
 set spell spelllang=en_us
 
 set colorcolumn=80
+
+filetype plugin on
+
+" these are the NERDcommenter aliases "
+
+map <C-c> <leader>cc
+map <C-x> <leader>cu
