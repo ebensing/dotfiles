@@ -27,5 +27,5 @@ filetype plugin on
 
 " these are the NERDcommenter aliases "
 
-map <C-c> <leader>cc
+map <C-c> <leader>cs
 map <C-x> <leader>cu
