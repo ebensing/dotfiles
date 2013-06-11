@@ -29,3 +29,6 @@ filetype plugin on
 
 map <C-c> <leader>cs
 map <C-x> <leader>cu
+
+" something to delete trailing white space "
+autocmd BufWritePre *.js :%s/\s\+$//e
