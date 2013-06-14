@@ -111,3 +111,6 @@ export EC2_URL=https://ec2.us-east-1.amazonaws.com
 export EC2_PRIVATE_KEY=$HOME/.ssh/pk-I3O26S4OUKOEKEV4CVLSEZ7DFEDV4HF7.pem
 export EC2_CERT=$HOME/.ssh/cert-I3O26S4OUKOEKEV4CVLSEZ7DFEDV4HF7.pem
 
+# make grep show line numbers
+alias grep='grep -n'
+export EDITOR=vim
