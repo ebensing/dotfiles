@@ -17,3 +17,5 @@ mkdir -p ~/.vim/plugin && cp nerdcommenter/plugin/NERD_commenter.vim ~/.vim/plug
 mkdir -p ~/.vim/doc && cp nerdcommenter/doc/NERD_commenter.txt ~/.vim/doc/
 
 rm -rf nerdcommenter
+
+unzip -o snipMate.zip -d ~/.vim

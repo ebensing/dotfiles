@@ -32,3 +32,6 @@ map <C-x> <leader>cu
 
 " something to delete trailing white space "
 autocmd BufWritePre *.js :%s/\s\+$//e
+
+" needed for snippets "
+filetype plugin on
