@@ -35,3 +35,8 @@ autocmd BufWritePre *.js :%s/\s\+$//e
 
 " needed for snippets "
 filetype plugin on
+
+" because I do this all the time... "
+
+command Wq wq
+command W w
