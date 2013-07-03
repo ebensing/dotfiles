@@ -28,6 +28,16 @@ cp -R unite.vim/plugin/* ~/.vim/plugin/
 
 rm -rf unite.vim
 
+git clone https://github.com/Shougo/vimproc.vim.git
+cd vimproc.vim
+make -f make_unix.mak
+
+cp -R autoload/* ~/.vim/autoload/
+cp -R plugin/* ~/.vim/plugin/
+
+cd ..
+rm -rf vimproc.vim
+
 unzip -o snipMate.zip -d ~/.vim
 
 cp javascript.snippets ~/.vim/snippets/
