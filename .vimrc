@@ -4,6 +4,15 @@ set nocompatible
 syntax on
 set number
 set expandtab
+" needed for vundle"
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
+set backspace=2
+
+filetype plugin indent on
 
 set ts=2
 set sw=2
@@ -35,6 +44,7 @@ autocmd BufWritePre *.js :%s/\s\+$//e
 
 " needed for snippets "
 filetype plugin on
+
 
 " because I do this all the time... "
 
