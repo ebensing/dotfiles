@@ -10,6 +10,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'Shougo/unite.vim'
 set backspace=2
 
 filetype plugin indent on
