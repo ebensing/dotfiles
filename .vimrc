@@ -11,6 +11,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'Shougo/unite.vim'
+Bundle 'snipMate'
+Bundle 'Shougo/vimproc.vim'
 set backspace=2
 
 filetype plugin indent on

@@ -8,26 +8,6 @@ cp .bashrc ~/.bashrc
 
 cp .gitconfig ~/.gitconfig
 
-mkdir -p ~/.vim/plugin 
-mkdir -p ~/.vim/doc
-
-mkdir -p ~/.vim/autoload 
-mkdir -p ~/.vim/syntax 
-mkdir -p ~/.vim/vest 
-
-git clone https://github.com/Shougo/vimproc.vim.git
-cd vimproc.vim
-make -f make_unix.mak
-
-cp -R autoload/* ~/.vim/autoload/
-cp -R plugin/* ~/.vim/plugin/
-
-cd ..
-rm -rf vimproc.vim
-
-unzip -o snipMate.zip -d ~/.vim
-
-cp javascript.snippets ~/.vim/snippets/
 
 # setup vundle
 if [ ! -d "${HOME}/.vim/bundle/vundle" ]; then
@@ -35,3 +15,5 @@ if [ ! -d "${HOME}/.vim/bundle/vundle" ]; then
 fi
 
 vim +BundleInstall +qall
+cp javascript.snippets ~/.vim/bundle/snipMate/snippets/
+cd ~/.vim/bundle/vimproc.vim/ && make -f make_unix.mak
