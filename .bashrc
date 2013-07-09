@@ -116,3 +116,8 @@ alias grep='grep -n'
 export EDITOR=vim
 
 alias gbu='git branch --set-upstream'
+
+# this is for when you compile vim from source, need to comment on system that doesn't
+if [ -d '/usr/share/vim/vim74a' ]; then
+  export VIMRUNTIME='/usr/share/vim/vim74a'
+fi
