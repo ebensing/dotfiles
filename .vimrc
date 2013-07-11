@@ -63,5 +63,6 @@ nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file
 nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
 nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
 nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+nnoremap <leader>s :<C-u>Unite -no-split -buffer-name=files -start-insert -default-action=split file<cr>
 
 nnoremap <space>/ :Unite grep:.<cr>
