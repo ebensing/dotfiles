@@ -1,6 +1,6 @@
 
 
-var json = JSON.parse(process.argv[1]);
+var json = JSON.parse(process.argv[2]);
 
 json["after"] = "happened";
 
