@@ -66,3 +66,4 @@ nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 nnoremap <leader>s :<C-u>Unite -no-split -buffer-name=files -start-insert -default-action=split file<cr>
 
 nnoremap <space>/ :Unite grep:.<cr>
+
