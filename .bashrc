@@ -121,3 +121,5 @@ alias gbu='git branch --set-upstream'
 if [ -d '/usr/share/vim/vim74a' ]; then
   export VIMRUNTIME='/usr/share/vim/vim74a'
 fi
+
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
