@@ -53,6 +53,7 @@ filetype plugin on
 
 command Wq wq
 command W w
+command Q q
 
 " Unite
 let g:unite_source_history_yank_enable = 1
