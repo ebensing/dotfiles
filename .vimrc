@@ -13,6 +13,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'Shougo/unite.vim'
 Bundle 'snipMate'
 Bundle 'Shougo/vimproc.vim'
+Bundle 'digitaltoad/vim-jade'
 set backspace=2
 
 filetype plugin indent on
