@@ -54,6 +54,7 @@ filetype plugin on
 
 command Wq wq
 command W w
+command Q q
 
 " Unite
 let g:unite_source_history_yank_enable = 1
@@ -67,3 +68,4 @@ nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 nnoremap <leader>s :<C-u>Unite -no-split -buffer-name=files -start-insert -default-action=split file<cr>
 
 nnoremap <space>/ :Unite grep:.<cr>
+
