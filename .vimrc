@@ -14,6 +14,7 @@ Bundle 'Shougo/unite.vim'
 Bundle 'snipMate'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'digitaltoad/vim-jade'
+Bundle 'plasticboy/vim-markdown'
 set backspace=2
 
 filetype plugin indent on
@@ -69,3 +70,5 @@ nnoremap <leader>s :<C-u>Unite -no-split -buffer-name=files -start-insert -defau
 
 nnoremap <space>/ :Unite grep:.<cr>
 
+" folding stuff "
+command F 'zf%'
