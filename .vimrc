@@ -71,4 +71,4 @@ nnoremap <leader>s :<C-u>Unite -no-split -buffer-name=files -start-insert -defau
 nnoremap <space>/ :Unite grep:.<cr>
 
 " folding stuff "
-command F 'zf%'
+map F $zf%
