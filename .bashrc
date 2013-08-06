@@ -122,4 +122,11 @@ if [ -d '/usr/share/vim/vim74a' ]; then
   export VIMRUNTIME='/usr/share/vim/vim74a'
 fi
 
+# pretty git log
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# generating ssh keys
+doGenKeys() {
+  ssh-keygen -t rsa -C $1
+}
+alias genkeys=doGenKeys
