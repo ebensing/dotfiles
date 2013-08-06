@@ -16,4 +16,5 @@ fi
 
 vim +BundleInstall +qall
 cp javascript.snippets ~/.vim/bundle/snipMate/snippets/
+sudo apt-get install build-essential
 cd ~/.vim/bundle/vimproc.vim/ && make -f make_unix.mak
