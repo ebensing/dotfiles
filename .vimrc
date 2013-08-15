@@ -72,3 +72,5 @@ nnoremap <space>/ :Unite grep:.<cr>
 
 " folding stuff "
 map F $zf%
+
+set nowrap
