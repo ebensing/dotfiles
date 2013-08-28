@@ -15,6 +15,7 @@ Bundle 'snipMate'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'plasticboy/vim-markdown'
+Bundle 'leafgarland/typescript-vim'
 set backspace=2
 
 filetype plugin indent on
@@ -74,3 +75,7 @@ nnoremap <space>/ :Unite grep:.<cr>
 map F $zf%
 
 set nowrap
+
+" typescript stuff "
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
