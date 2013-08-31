@@ -79,3 +79,6 @@ set nowrap
 " typescript stuff "
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
+" This is to remove windows line endings "
+command LE %s///g
