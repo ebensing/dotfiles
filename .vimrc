@@ -16,6 +16,7 @@ Bundle 'Shougo/vimproc.vim'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'ebensing/typescript-vim'
+Bundle 'evidens/vim-twig'
 set backspace=2
 
 filetype plugin indent on
