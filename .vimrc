@@ -83,3 +83,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 " This is to remove windows line endings "
 command LE %s///g
+
+" make spell mistakes readable "
+
+hi SpellBad    ctermfg=015      ctermbg=000     cterm=none      guifg=#FFFFFF   guibg=#000000   gui=none
