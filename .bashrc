@@ -130,3 +130,5 @@ doGenKeys() {
   ssh-keygen -t rsa -C $1
 }
 alias genkeys=doGenKeys
+
+export PATH="/opt/chef/embedded/bin:$PATH"
