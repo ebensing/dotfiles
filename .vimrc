@@ -17,6 +17,7 @@ Bundle 'digitaltoad/vim-jade'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'ebensing/typescript-vim'
 Bundle 'evidens/vim-twig'
+Bundle 'nono/vim-handlebars'
 set backspace=2
 
 filetype plugin indent on
