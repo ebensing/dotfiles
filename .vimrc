@@ -34,6 +34,8 @@ autocmd BufRead,BufNewFile *.py syntax on
 autocmd BufRead,BufNewFile *.py set ai
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,with,try,except,finally,def,class
 
+au FileType python setl sw=4 sts=4 et
+
 set tags=tags;/
 
 set spell spelllang=en_us
