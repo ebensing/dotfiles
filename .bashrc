@@ -76,9 +76,12 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    alias grep='grep -n --color=auto'
+    alias fgrep='fgrep -n --color=auto'
+    alias egrep='egrep -n --color=auto'
+else
+    # make grep show line numbers
+    alias grep='grep -n'
 fi
 
 # some more ls aliases
@@ -112,8 +115,13 @@ export EC2_PRIVATE_KEY=$HOME/.ssh/pk-I3O26S4OUKOEKEV4CVLSEZ7DFEDV4HF7.pem
 export EC2_CERT=$HOME/.ssh/cert-I3O26S4OUKOEKEV4CVLSEZ7DFEDV4HF7.pem
 export AWS_DEFAULT_REGION='us-east-1'
 
-# make grep show line numbers
-alias grep='grep -n'
+
+aws=`which aws`
+if [ $aws ]; then
+  # command completion for awscli
+  complete -C aws_completer aws
+fi
+
 export EDITOR=vim
 
 alias gbu='git branch --set-upstream'
