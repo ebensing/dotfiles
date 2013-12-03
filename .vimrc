@@ -35,6 +35,7 @@ autocmd BufRead,BufNewFile *.py set ai
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,with,try,except,finally,def,class
 
 au FileType python setl sw=4 sts=4 et
+au FileType php setl sw=4 sts=4 et
 
 set tags=tags;/
 
@@ -50,7 +51,7 @@ map <C-c> <leader>cs
 map <C-x> <leader>cu
 
 " something to delete trailing white space "
-autocmd BufWritePre *.js :%s/\s\+$//e
+autocmd BufWritePre *.* :%s/\s\+$//e
 
 " needed for snippets "
 filetype plugin on
