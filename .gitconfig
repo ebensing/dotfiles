@@ -3,3 +3,5 @@
 	name = EJ Bensing
 [branch]
 	autosetuprebase = always
+[push]
+	default = simple
