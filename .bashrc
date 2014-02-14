@@ -141,3 +141,5 @@ doGenKeys() {
 alias genkeys=doGenKeys
 
 export PATH="/opt/chef/embedded/bin:$PATH"
+
+alias genpass="openssl rand -base64 32"
