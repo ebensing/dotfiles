@@ -143,3 +143,9 @@ alias genkeys=doGenKeys
 export PATH="/opt/chef/embedded/bin:$PATH"
 
 alias genpass="openssl rand -base64 32"
+
+# fix maven logging, which has no way of setting the default level to warn
+mvn_warn_only() { mvn "$@" > >(egrep -v "(^\[INFO\])") ; }
+alias mvn=mvn_warn_only
+
+alias mvndb="mvn initialize flyway:clean && mvn initialize flyway:migrate"
