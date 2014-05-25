@@ -18,6 +18,8 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'ebensing/typescript-vim'
 Bundle 'evidens/vim-twig'
 Bundle 'nono/vim-handlebars'
+Bundle 'Shougo/neomru.vim'
+Bundle 'groenewege/vim-less'
 set backspace=2
 
 filetype plugin indent on
