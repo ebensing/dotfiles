@@ -20,6 +20,7 @@ Bundle 'evidens/vim-twig'
 Bundle 'nono/vim-handlebars'
 Bundle 'Shougo/neomru.vim'
 Bundle 'groenewege/vim-less'
+Bundle 'mustache/vim-mustache-handlebars'
 set backspace=2
 
 filetype plugin indent on
