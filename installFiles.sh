@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #this script will install the dot files in this diretory
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh > ~/.bash_git
 
 cp .vimrc ~/.vimrc
 
