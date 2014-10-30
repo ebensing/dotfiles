@@ -150,3 +150,11 @@ alias mvn=mvn_warn_only
 
 alias mvndb="mvn initialize flyway:clean && mvn initialize flyway:migrate"
 alias mcompile="mvn package -Dmaven.test.skip=true"
+
+runSnapshotImport() {
+  cd /vagrant/build/tools/src/main/resources/snapshots
+  ./cleanDB.sh
+  cd /vagrant/migration
+}
+
+alias cleandb=runSnapshotImport
