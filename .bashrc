@@ -158,6 +158,3 @@ runSnapshotImport() {
 }
 
 alias cleandb=runSnapshotImport
-gitdel() {
-  git fetch && git checkout -B master origin/master && git branch --merged | grep -v "\*" | xargs -n 1 git branch -d ;
-}
