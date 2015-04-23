@@ -148,7 +148,7 @@ alias genpass="openssl rand -base64 32"
 mvn_warn_only() { mvn "$@" > >(egrep -v "(^\[INFO\])") ; }
 alias mvn=mvn_warn_only
 
-alias mvndb="mvn initialize flyway:clean && mvn initialize flyway:migrate"
+#alias mvndb="mvn initialize flyway:clean && mvn initialize flyway:migrate"
 alias mcompile="mvn package -Dmaven.test.skip=true"
 
 runSnapshotImport() {
@@ -158,3 +158,13 @@ runSnapshotImport() {
 }
 
 alias cleandb=runSnapshotImport
+
+funMvndb() {
+  cd ~/vagrant/migration
+  mvn initialize flyway:clean
+  curl http://{TCUSERNAME}:{TCPASSWORD}@10.43.1.14/repository/download/Mark43Serv_Database_CreateDatabaseArtifact/lastSuccessful/mark43.dump.gz > mark43.dump.gz
+  gzip -dc < mark43.dump.gz | mysql -h 127.0.0.1 -u mark43 -p{password}
+  mvn initialize flyway:migrate
+}
+
+alias mvndb=funMvndb
