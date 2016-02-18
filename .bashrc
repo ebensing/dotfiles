@@ -152,9 +152,9 @@ alias mvn=mvn_warn_only
 alias mcompile="mvn package -Dmaven.test.skip=true"
 
 runSnapshotImport() {
-  cd /vagrant/build/tools/src/main/resources/snapshots
+  cd /vagrant/cobalt-rms/build/server-data/snapshots
   ./cleanDB.sh
-  cd /vagrant/migration
+  cd /vagrant/cobalt-rms/migration
 }
 
 alias cleandb=runSnapshotImport
