@@ -1,7 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-source ~/.bash_git
+# source ~/.bash_git
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -136,7 +136,7 @@ alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
 
 # generating ssh keys
 doGenKeys() {
-  ssh-keygen -t rsa -C $1
+  ssh-keygen -t ed25519 -C $1
 }
 alias genkeys=doGenKeys
 
