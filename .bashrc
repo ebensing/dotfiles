@@ -109,12 +109,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export EC2_KEYPAIR=new-root-key
-export EC2_URL=https://ec2.us-east-1.amazonaws.com
-export EC2_PRIVATE_KEY=$HOME/.ssh/pk-I3O26S4OUKOEKEV4CVLSEZ7DFEDV4HF7.pem
-export EC2_CERT=$HOME/.ssh/cert-I3O26S4OUKOEKEV4CVLSEZ7DFEDV4HF7.pem
-export AWS_DEFAULT_REGION='us-east-1'
-
 
 aws=`which aws`
 if [ $aws ]; then
@@ -126,10 +120,11 @@ export EDITOR=vim
 
 alias gbu='git branch --set-upstream'
 
-# this is for when you compile vim from source, need to comment on system that doesn't
-if [ -d '/usr/share/vim/vim74a' ]; then
-  export VIMRUNTIME='/usr/share/vim/vim74a'
-fi
+pullBranch() {
+  git pull --rebase origin $1
+}
+
+alias p=pullBranch
 
 # pretty git log
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -140,28 +135,15 @@ doGenKeys() {
 }
 alias genkeys=doGenKeys
 
-export PATH="/opt/chef/embedded/bin:$PATH"
-
 alias genpass="openssl rand -base64 32"
 
-# fix maven logging, which has no way of setting the default level to warn
-mvn_warn_only() { mvn "$@" > >(egrep -v "(^\[INFO\])") ; }
-alias mvn=mvn_warn_only
+# fnm
+FNM_PATH="/home/ebensing/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
 
-#alias mvndb="mvn initialize flyway:clean && mvn initialize flyway:migrate"
-alias mcompile="mvn package -Dmaven.test.skip=true"
+export LHCI_CHROME_PATH=/usr/bin/google-chrome
 
-runSnapshotImport() {
-  cd /vagrant/cobalt-rms/build/server-data/snapshots
-  ./cleanDB.sh
-  cd /vagrant/cobalt-rms/migration
-}
 
-alias cleandb=runSnapshotImport
-
-funMvndb() {
-  cd ~/dotfiles/
-  ./mvndb.sh
-}
-
-alias mvndb=funMvndb
