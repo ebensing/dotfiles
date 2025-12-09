@@ -147,3 +147,23 @@ fi
 export LHCI_CHROME_PATH=/usr/bin/google-chrome
 
 
+
+. "$HOME/.local/bin/env"
+
+# This is default install for uv
+export PATH="$HOME/.local/bin:$PATH"
+
+export AWS_REGION="us-east-2"
+
+alias gc='f(){
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { echo "not a repo"; return 1; }
+  git fetch --prune
+  gone=$(git for-each-ref --format="%(refname:short) %(upstream:track)" refs/heads | awk '\''$2=="[gone]" {print $1}'\'')
+  [ -z "$gone" ] && { echo "no gone branches"; return 0; }
+  echo "$gone" | xargs -r git branch -D
+}; f'
+
+# Secrets
+if [ -f ~/.bash_secrets ]; then
+    source ~/.bash_secrets
+fi
