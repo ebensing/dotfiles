@@ -153,17 +153,36 @@ export LHCI_CHROME_PATH=/usr/bin/google-chrome
 # This is default install for uv
 export PATH="$HOME/.local/bin:$PATH"
 
+export PATH="$PATH:/opt/mssql-tools18/bin"
+
 export AWS_REGION="us-east-2"
 
 alias gc='f(){
-  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { echo "not a repo"; return 1; }
-  git fetch --prune
-  gone=$(git for-each-ref --format="%(refname:short) %(upstream:track)" refs/heads | awk '\''$2=="[gone]" {print $1}'\'')
-  [ -z "$gone" ] && { echo "no gone branches"; return 0; }
-  echo "$gone" | xargs -r git branch -D
-}; f'
+    remote="${1:-origin}"
+
+    git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { echo "not a repo"; return 1; }
+
+    git fetch "$remote" --prune || { echo "fetch failed for remote: $remote"; return 1; }
+
+    gone=$(git for-each-ref --format="%(refname:short) %(upstream:short) %(upstream:track)" refs/heads \
+      | awk -v r="$remote" '\''$3=="[gone]" && $2 ~ "^"r"/" {print $1}'\'')
+
+    [ -z "$gone" ] && { echo "no gone branches for remote: $remote"; return 0; }
+
+    echo "$gone" | xargs -r git branch -D
+  }; f'
 
 # Secrets
 if [ -f ~/.bash_secrets ]; then
     source ~/.bash_secrets
 fi
+
+alias cm='f(){
+    git checkout main
+    git pull --rebase origin main
+}; f'
+
+# Entire CLI shell completion
+source <(entire completion bash)
+
+export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
