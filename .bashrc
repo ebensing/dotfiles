@@ -189,3 +189,5 @@ alias cm='f(){
 source <(entire completion bash)
 
 export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+
+alias cld="claude --allow-dangerously-skip-permissions"
