@@ -178,8 +178,11 @@ if [ -f ~/.bash_secrets ]; then
 fi
 
 alias cm='f(){
-    git checkout main
-    git pull --rebase origin main
+    local branch
+    branch=$(git remote show origin 2>/dev/null | awk "/HEAD branch/ {print \$NF}")
+    [ -z "$branch" ] && branch=$(git rev-parse --verify main &>/dev/null && echo main || echo master)
+    git checkout "$branch"
+    git pull --rebase origin "$branch"
 }; f'
 
 # Entire CLI shell completion
