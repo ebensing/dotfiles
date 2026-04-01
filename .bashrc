@@ -191,3 +191,31 @@ source <(entire completion bash)
 export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
 
 alias cld="claude --allow-dangerously-skip-permissions"
+
+# Update CLI tools (sam, entire, claude)
+updateTools() {
+  if command -v sam &>/dev/null; then
+    echo "Updating sam..."
+    curl -Lo /tmp/aws-sam-cli.zip https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
+    unzip -o /tmp/aws-sam-cli.zip -d /tmp/sam-installation
+    sudo /tmp/sam-installation/install --update
+    rm -rf /tmp/aws-sam-cli.zip /tmp/sam-installation
+  else
+    echo "sam not installed, skipping"
+  fi
+
+  if command -v entire &>/dev/null; then
+    echo "Updating entire..."
+    curl -fsSL https://entire.io/install.sh | bash
+  else
+    echo "entire not installed, skipping"
+  fi
+
+  if command -v claude &>/dev/null; then
+    echo "Updating claude..."
+    claude update
+  else
+    echo "claude not installed, skipping"
+  fi
+}
+alias update_tools=updateTools
