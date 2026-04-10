@@ -188,6 +188,11 @@ alias cm='f(){
 # Entire CLI shell completion
 source <(entire completion bash)
 
+# but CLI shell completion
+if command -v but &>/dev/null; then
+  source <(but completions bash)
+fi
+
 export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
 
 alias cld="claude --allow-dangerously-skip-permissions"
@@ -216,6 +221,13 @@ updateTools() {
     claude update
   else
     echo "claude not installed, skipping"
+  fi
+
+  if command -v but &>/dev/null; then
+    echo "Updating but..."
+    but update install
+  else
+    echo "but not installed, skipping"
   fi
 }
 alias update_tools=updateTools
