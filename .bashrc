@@ -195,7 +195,7 @@ fi
 
 export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
 
-alias cld="claude --allow-dangerously-skip-permissions"
+alias cld="claude --allow-dangerously-skip-permissions --dangerously-skip-permissions"
 
 # Update CLI tools (sam, entire, claude)
 updateTools() {
