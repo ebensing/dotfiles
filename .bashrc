@@ -228,3 +228,4 @@ updateTools() {
 
 }
 alias update_tools=updateTools
+alias uts=updateTools
