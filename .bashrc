@@ -188,7 +188,7 @@ alias cm='f(){
 # Entire CLI shell completion
 source <(entire completion bash)
 
-export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+export BROWSER=/usr/local/bin/edge-wsl
 
 alias cld="claude --allow-dangerously-skip-permissions"
 
