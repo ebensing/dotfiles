@@ -50,10 +50,16 @@ done
 exec \"$EDGE_EXE\" \"\${args[@]}\"
 "
 
-if [ -x "$WRAPPER" ]; then
-  echo "$WRAPPER already exists; leaving it as is."
+# Compare contents, not just existence — an out-of-date wrapper needs replacing,
+# and existence-only checks let a stale version linger forever.
+if printf '%s' "$WRAPPER_CONTENT" | diff -q - "$WRAPPER" > /dev/null 2>&1; then
+  echo "$WRAPPER is up to date."
 else
-  echo "Installing $WRAPPER (requires sudo)..."
+  if [ -e "$WRAPPER" ]; then
+    echo "Updating $WRAPPER (requires sudo)..."
+  else
+    echo "Installing $WRAPPER (requires sudo)..."
+  fi
   printf '%s' "$WRAPPER_CONTENT" | sudo tee "$WRAPPER" > /dev/null
   sudo chmod +x "$WRAPPER"
 fi
