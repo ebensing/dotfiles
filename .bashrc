@@ -226,6 +226,13 @@ updateTools() {
     echo "claude not installed, skipping"
   fi
 
+  if command -v herdr &>/dev/null; then
+    echo "Updating herdr..."
+    herdr update
+  else
+    echo "herdr not installed, skipping"
+  fi
+
 }
 alias update_tools=updateTools
 alias uts=updateTools
