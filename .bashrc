@@ -190,14 +190,10 @@ source <(entire completion bash)
 
 export BROWSER=/usr/local/bin/edge-wsl
 
-# Inside herdr, ctrl-clicking a link used to open two tabs: Windows Terminal
-# opens the OSC 8 hyperlink itself (Windows default browser), and Claude Code
-# separately opens it via $BROWSER. herdr already swallows plain clicks, so
-# Claude Code's click handling adds nothing here beyond the duplicate tab.
-# "scroll" mode keeps the wheel working and drops click handling.
-if [ -n "${HERDR_ENV:-}" ]; then
-  export CLAUDE_CODE_DISABLE_MOUSE_CLICKS=1
-fi
+# Claude Code keeps full mouse support inside herdr (clicking and selecting).
+# Ctrl-clicking a link opens two tabs, because Windows Terminal opens the OSC 8
+# hyperlink itself and Claude Code separately opens it via $BROWSER. Plain-click
+# links instead: only Claude Code sees that, so exactly one tab opens.
 
 alias cld="claude --allow-dangerously-skip-permissions"
 
