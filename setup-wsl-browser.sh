@@ -8,7 +8,7 @@
 # ($BROWSER itself is exported in .bashrc, which sources from this repo.)
 #
 # Idempotent; safe to re-run. Needs sudo only if /usr/local/bin/edge-wsl
-# is missing or out of date.
+# is missing or out of date, or to install xdg-utils.
 
 set -euo pipefail
 
@@ -64,6 +64,14 @@ else
   sudo chmod +x "$WRAPPER"
 fi
 
+# --- xdg-utils provides xdg-open/xdg-settings/xdg-mime --------------------
+# Minimal WSL images don't ship it, and without it nothing below works.
+if ! command -v xdg-settings > /dev/null || ! command -v xdg-mime > /dev/null; then
+  echo "Installing xdg-utils (requires sudo)..."
+  sudo apt-get update -qq
+  sudo apt-get install -y -qq xdg-utils
+fi
+
 # --- Desktop entry so xdg-open resolves to the wrapper -------------------
 DESKTOP_DIR="$HOME/.local/share/applications"
 DESKTOP_FILE="$DESKTOP_DIR/msedge-windows.desktop"
@@ -85,10 +93,13 @@ command -v update-desktop-database > /dev/null && update-desktop-database "$DESK
 
 # --- Register as default browser and text/html handler -------------------
 # env -u BROWSER: xdg-settings refuses to run while $BROWSER is set.
-env -u BROWSER xdg-settings set default-web-browser msedge-windows.desktop
+# XDG_CURRENT_DESKTOP=X-Generic: xdg-utils >= 1.2 detects WSL as DE "wsl",
+# which xdg-settings doesn't support ("unknown desktop environment").
+xdg_settings() { env -u BROWSER XDG_CURRENT_DESKTOP=X-Generic xdg-settings "$@"; }
+xdg_settings set default-web-browser msedge-windows.desktop
 xdg-mime default msedge-windows.desktop \
   text/html application/xhtml+xml \
   x-scheme-handler/http x-scheme-handler/https
 
-echo "Done. Default browser: $(env -u BROWSER xdg-settings get default-web-browser)"
+echo "Done. Default browser: $(xdg_settings get default-web-browser)"
 echo "text/html handler:     $(xdg-mime query default text/html)"
