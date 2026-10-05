@@ -148,7 +148,7 @@ export LHCI_CHROME_PATH=/usr/bin/google-chrome
 
 
 
-. "$HOME/.local/bin/env"
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 # This is default install for uv
 export PATH="$HOME/.local/bin:$PATH"
