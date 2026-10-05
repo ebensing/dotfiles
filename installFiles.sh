@@ -15,3 +15,7 @@ if ! grep -qF "$BASHRC_SOURCE_LINE" ~/.bashrc 2>/dev/null; then
 fi
 
 cp .gitconfig ~/.gitconfig
+
+if ! command -v entire &>/dev/null; then
+  curl -fsSL https://entire.io/install.sh | bash
+fi
