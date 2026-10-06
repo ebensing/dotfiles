@@ -197,6 +197,9 @@ export BROWSER=/usr/local/bin/edge-wsl
 
 alias cld="claude --allow-dangerously-skip-permissions"
 
+# SSH to rei-wsl over Tailscale, forwarding local ports 8000 and 8001 to rei-wsl's localhost
+alias ssh-rei="tailscale ssh rei-wsl -L 8000:localhost:8000 -L 8001:localhost:8001"
+
 # Update CLI tools (sam, entire, claude)
 updateTools() {
   if command -v sam &>/dev/null; then
