@@ -141,7 +141,7 @@ alias genpass="openssl rand -base64 32"
 FNM_PATH="/home/ebensing/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
+  eval "$(fnm env --use-on-cd --shell bash)"
 fi
 
 export LHCI_CHROME_PATH=/usr/bin/google-chrome
