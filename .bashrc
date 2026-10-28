@@ -189,6 +189,9 @@ alias cm='f(){
 source <(entire completion bash)
 
 export BROWSER=/usr/local/bin/edge-wsl
+# Pick the Edge profile links open in, by display name or directory
+# (`edge-wsl --list-profiles` shows both). Unset = Edge's last-used profile.
+# export EDGE_PROFILE=Gravitate
 
 # Claude Code keeps full mouse support inside herdr (clicking and selecting).
 # Ctrl-clicking a link opens two tabs, because Windows Terminal opens the OSC 8

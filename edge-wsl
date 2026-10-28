@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# Open a URL or file in Windows Edge from WSL.
+# Installed to /usr/local/bin/edge-wsl (as a symlink) by setup-wsl-browser.sh.
+#
+# Set EDGE_PROFILE to choose which Edge profile opens the link. It accepts
+# either the profile's display name as shown in Edge (e.g. "Gravitate") or its
+# directory name (e.g. "Default", "Profile 4"). Unset means Edge's own choice
+# (the last-used profile).
+#
+#   EDGE_PROFILE=Gravitate edge-wsl https://example.com
+#   edge-wsl --list-profiles
+
+set -euo pipefail
+
+EDGE_EXE=""
+for candidate in \
+  "/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" \
+  "/mnt/c/Program Files/Microsoft/Edge/Application/msedge.exe"; do
+  if [ -x "$candidate" ]; then
+    EDGE_EXE="$candidate"
+    break
+  fi
+done
+
+if [ -z "$EDGE_EXE" ]; then
+  echo "edge-wsl: msedge.exe not found under /mnt/c — is the C: drive mounted?" >&2
+  exit 1
+fi
+
+# Edge's "Local State" file maps profile directories to display names.
+local_state() {
+  local appdata
+  # cd /mnt/c: cmd.exe warns about (and ignores) a UNC working directory.
+  appdata=$(cd /mnt/c && cmd.exe /c 'echo %LOCALAPPDATA%' 2>/dev/null | tr -d '\r')
+  [ -n "$appdata" ] || return 1
+  printf '%s/Microsoft/Edge/User Data/Local State' "$(wslpath -u "$appdata")"
+}
+
+# Prints "<directory>\t<display name>" for each profile.
+list_profiles() {
+  local state
+  state=$(local_state) && [ -f "$state" ] || {
+    echo "edge-wsl: couldn't find Edge's Local State file" >&2
+    return 1
+  }
+  python3 - "$state" <<'EOF'
+import json, sys
+with open(sys.argv[1], encoding="utf-8") as f:
+    cache = json.load(f).get("profile", {}).get("info_cache", {})
+for directory, info in sorted(cache.items()):
+    print(f"{directory}\t{info.get('name', '')}")
+EOF
+}
+
+# Resolve EDGE_PROFILE to a profile directory name.
+resolve_profile() {
+  local want=$1 directory name
+  # Display names win over directory names: Edge names new profiles
+  # "Profile N", which needn't match their "Profile M" directory.
+  while IFS=$'\t' read -r directory name; do
+    if [[ "${name,,}" == "${want,,}" ]]; then
+      printf '%s' "$directory"
+      return 0
+    fi
+  done < <(list_profiles 2>/dev/null)
+  # No display-name match: treat it as a directory name.
+  printf '%s' "$want"
+}
+
+if [[ "${1:-}" == "--list-profiles" ]]; then
+  list_profiles | column -t -s $'\t' -N DIRECTORY,NAME
+  exit
+fi
+
+args=()
+if [ -n "${EDGE_PROFILE:-}" ]; then
+  args+=("--profile-directory=$(resolve_profile "$EDGE_PROFILE")")
+fi
+
+for arg in "$@"; do
+  if [[ -e "$arg" ]]; then
+    args+=("$(wslpath -w "$arg")")
+  elif [[ "$arg" == file://* ]]; then
+    args+=("$(wslpath -w "${arg#file://}")")
+  else
+    args+=("$arg")
+  fi
+done
+
+exec "$EDGE_EXE" "${args[@]}"
