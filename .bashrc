@@ -189,6 +189,9 @@ alias cm='f(){
 source <(entire completion bash)
 
 export BROWSER=/usr/local/bin/edge-wsl
+# Pick the Edge profile links open in, by display name or directory
+# (`edge-wsl --list-profiles` shows both). Unset = Edge's last-used profile.
+# export EDGE_PROFILE=Gravitate
 
 # Claude Code keeps full mouse support inside herdr (clicking and selecting).
 # Ctrl-clicking a link opens two tabs, because Windows Terminal opens the OSC 8
@@ -199,6 +202,9 @@ alias cld="claude --allow-dangerously-skip-permissions"
 
 # SSH to rei-wsl over Tailscale, forwarding local ports 8000 and 8001 to rei-wsl's localhost
 alias ssh-rei="tailscale ssh rei-wsl -L 8000:localhost:8000 -L 8001:localhost:8001"
+
+# Log in to finance-proxy in the "Profile 2" Edge profile (last-used profile if it's gone)
+alias fpl='EDGE_PROFILE="Profile 2" finance-proxy login'
 
 # Update CLI tools (sam, entire, claude)
 updateTools() {
