@@ -5,8 +5,8 @@
 #
 # Set EDGE_PROFILE to choose which Edge profile opens the link. It accepts
 # either the profile's display name as shown in Edge (e.g. "Gravitate") or its
-# directory name (e.g. "Default", "Profile 4"). Unset means Edge's own choice
-# (the last-used profile).
+# directory name (e.g. "Default", "Profile 4"). Unset, or a profile that
+# doesn't exist, means Edge's own choice (the last-used profile).
 #
 #   EDGE_PROFILE=Gravitate edge-wsl https://example.com
 #   edge-wsl --list-profiles
@@ -55,7 +55,9 @@ EOF
 
 # Resolve EDGE_PROFILE to a profile directory name.
 resolve_profile() {
-  local want=$1 directory name
+  local want=$1 profiles directory name
+  # Can't read the profile list: pass it through and let Edge decide.
+  profiles=$(list_profiles 2>/dev/null) || { printf '%s' "$want"; return 0; }
   # Display names win over directory names: Edge names new profiles
   # "Profile N", which needn't match their "Profile M" directory.
   while IFS=$'\t' read -r directory name; do
@@ -63,9 +65,16 @@ resolve_profile() {
       printf '%s' "$directory"
       return 0
     fi
-  done < <(list_profiles 2>/dev/null)
-  # No display-name match: treat it as a directory name.
-  printf '%s' "$want"
+  done <<< "$profiles"
+  while IFS=$'\t' read -r directory name; do
+    if [[ "$directory" == "$want" ]]; then
+      printf '%s' "$directory"
+      return 0
+    fi
+  done <<< "$profiles"
+  # Unknown profile: Edge would silently create it, so fall back instead.
+  echo "edge-wsl: no Edge profile \"$want\"; using the last-used profile" >&2
+  return 1
 }
 
 if [[ "${1:-}" == "--list-profiles" ]]; then
@@ -74,8 +83,8 @@ if [[ "${1:-}" == "--list-profiles" ]]; then
 fi
 
 args=()
-if [ -n "${EDGE_PROFILE:-}" ]; then
-  args+=("--profile-directory=$(resolve_profile "$EDGE_PROFILE")")
+if [ -n "${EDGE_PROFILE:-}" ] && profile=$(resolve_profile "$EDGE_PROFILE"); then
+  args+=("--profile-directory=$profile")
 fi
 
 for arg in "$@"; do
