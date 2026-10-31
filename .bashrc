@@ -188,6 +188,12 @@ alias cm='f(){
 # Entire CLI shell completion
 source <(entire completion bash)
 
+# 1Password CLI shell completion
+command -v op &>/dev/null && source <(op completion bash)
+
+# Sign in to 1Password in this shell, unless already signed in
+alias opin='op whoami &>/dev/null || eval "$(op signin)"'
+
 export BROWSER=/usr/local/bin/edge-wsl
 # Pick the Edge profile links open in, by display name or directory
 # (`edge-wsl --list-profiles` shows both). Unset = Edge's last-used profile.
