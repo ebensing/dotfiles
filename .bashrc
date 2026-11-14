@@ -144,6 +144,14 @@ if [ -d "$FNM_PATH" ]; then
   eval "$(fnm env --use-on-cd --shell bash)"
 fi
 
+# pnpm (standalone install via get.pnpm.io). Must come after fnm so it
+# shadows the Corepack pnpm shim that ships with each fnm Node version.
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
 export LHCI_CHROME_PATH=/usr/bin/google-chrome
 
 
